@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ADN Emprendedor - Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+        .sidebar-active { background: #10b981; box-shadow: 0 10px 15px -3px rgba(16, 185, 129, 0.2); }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800">
+
+    <div class="flex min-h-screen">
+        <aside class="w-72 bg-[#0F172A] text-white flex flex-col p-6 space-y-2 fixed h-full">
+            <div class="flex items-center gap-3 mb-10 px-2">
+                <img src="logo.png" alt="Logo" class="h-12 w-auto rounded-lg">
+                <div>
+                    <h1 class="text-sm font-black text-emerald-400 leading-none">ADN EMPRENDEDOR</h1>
+                    <p class="text-[10px] text-slate-400 font-bold tracking-tighter">GRUPO DE NEGOCIOS</p>
+                </div>
+            </div>
+
+            <nav class="space-y-4">
+                <button class="w-full flex items-center gap-4 sidebar-active text-white px-5 py-3 rounded-full text-sm font-bold transition-all">
+                    <i data-lucide="layout-dashboard"></i> Mi Tablero
+                </button>
+                <button class="w-full flex items-center gap-4 hover:bg-slate-800 px-5 py-3 rounded-full text-sm font-medium transition-all text-slate-400 hover:text-white">
+                    <i data-lucide="arrow-left-right"></i> Entradas y Salidas
+                </button>
+                <button class="w-full flex items-center gap-4 hover:bg-slate-800 px-5 py-3 rounded-full text-sm font-medium transition-all text-slate-400 hover:text-white">
+                    <i data-lucide="package"></i> Mis Productos
+                </button>
+                <button onclick="toggleModal()" class="w-full flex items-center gap-4 hover:bg-slate-800 px-5 py-3 rounded-full text-sm font-medium transition-all text-slate-400 hover:text-white">
+                    <i data-lucide="user-circle"></i> Mi Asesor
+                </button>
+                <button class="w-full flex items-center gap-4 hover:bg-slate-800 px-5 py-3 rounded-full text-sm font-medium transition-all text-slate-400 hover:text-white">
+                    <i data-lucide="settings"></i> Configuración
+                </button>
+            </nav>
+        </aside>
+
+        <main class="ml-72 flex-1 p-8">
+            <header class="flex justify-between items-center mb-8 bg-white p-5 rounded-2xl shadow-sm border border-slate-100">
+                <div class="flex items-center gap-4">
+                    <div class="bg-emerald-50 px-3 py-1 rounded-lg text-emerald-600 font-black italic text-xl">ADN</div>
+                    <div>
+                        <p class="text-[10px] text-slate-400 uppercase font-black tracking-widest leading-none">Mi Negocio</p>
+                        <h2 class="text-xl font-bold text-slate-800 italic">Bodega "La Estrellita"</h2>
+                    </div>
+                </div>
+                <div class="flex items-center gap-4">
+                    <div class="relative bg-slate-100 p-2 rounded-full cursor-pointer">
+                        <i data-lucide="bell" class="text-slate-600"></i>
+                        <span class="absolute top-0 right-0 w-3 h-3 bg-red-500 rounded-full border-2 border-white"></span>
+                    </div>
+                    <div class="bg-emerald-400 text-white w-10 h-10 rounded-full flex items-center justify-center font-bold">Tú</div>
+                </div>
+            </header>
+
+            <div class="bg-[#111827] rounded-[2.5rem] p-8 mb-8 text-white flex justify-between items-center relative shadow-2xl">
+                <div>
+                    <div class="flex items-center gap-2 text-emerald-400 mb-3 text-[10px] font-black uppercase tracking-widest">
+                        <i data-lucide="zap" size="14"></i> Acciones Rápidas
+                    </div>
+                    <h3 class="text-3xl font-bold mb-2 italic">¿Qué pasó hoy en tu negocio?</h3>
+                    <p class="text-slate-400">Anota un movimiento en menos de 10 segundos.</p>
+                </div>
+                <button class="bg-emerald-500 hover:bg-emerald-400 px-8 py-4 rounded-full font-black flex items-center gap-3 transition-all active:scale-95 shadow-xl shadow-emerald-500/20">
+                    <i data-lucide="plus-circle"></i> NUEVO REGISTRO <span class="font-normal opacity-70">(Ingreso o Gasto)</span>
+                </button>
+            </div>
+
+            <div class="grid grid-cols-3 gap-6 mb-8">
+                <div class="bg-white p-8 rounded-[2.5rem] border-2 border-emerald-100 shadow-sm relative overflow-hidden group">
+                    <div class="flex justify-between items-start mb-6">
+                        <div class="bg-emerald-50 p-4 rounded-2xl text-emerald-500"><i data-lucide="wallet"></i></div>
+                        <div class="w-3 h-3 bg-emerald-500 rounded-full animate-pulse"></div>
+                    </div>
+                    <p class="text-slate-500 font-semibold text-sm">Dinero en Caja hoy</p>
+                    <h4 class="text-4xl font-black mt-2 tracking-tight italic">S/ 5,030.00</h4>
+                    <p class="text-emerald-500 text-xs font-bold mt-4">✓ Listo para usarse</p>
+                </div>
+                <div class="bg-white p-8 rounded-[2.5rem] border-2 border-orange-100 shadow-sm">
+                    <div class="bg-orange-50 p-4 rounded-2xl text-orange-400 w-fit mb-6"><i data-lucide="clock"></i></div>
+                    <p class="text-slate-500 font-semibold text-sm">Pagos Pendientes</p>
+                    <h4 class="text-4xl font-black mt-2 tracking-tight italic text-slate-700">S/ 1,200.00</h4>
+                    <p class="text-orange-400 text-xs font-bold mt-4">! Vencen esta semana</p>
+                </div>
+                <div class="bg-white p-8 rounded-[2.5rem] border-2 border-sky-100 shadow-sm">
+                    <div class="bg-sky-50 p-4 rounded-2xl text-sky-400 w-fit mb-6"><i data-lucide="trending-up"></i></div>
+                    <p class="text-slate-500 font-semibold text-sm">Tu ganancia real del mes</p>
+                    <h4 class="text-4xl font-black mt-2 tracking-tight italic text-slate-700">S/ 2,694.00</h4>
+                    <p class="text-sky-400 text-xs font-bold mt-4">★ ¡Vas muy bien!</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-3 gap-8">
+                <div class="col-span-2 bg-white p-10 rounded-[3rem] shadow-sm border border-slate-100">
+                    <div class="flex justify-between items-center mb-10">
+                        <div>
+                            <h4 class="font-black text-xl italic">Lo que entró vs lo que salió</h4>
+                            <p class="text-slate-400 text-xs font-bold">Últimos 7 días</p>
+                        </div>
+                        <div class="flex gap-6 text-[10px] font-black uppercase tracking-widest">
+                            <span class="flex items-center gap-2"><span class="w-3 h-3 rounded-full bg-emerald-500"></span> Entró</span>
+                            <span class="flex items-center gap-2"><span class="w-3 h-3 rounded-full bg-orange-400"></span> Salió</span>
+                        </div>
+                    </div>
+                    <canvas id="mainChart" height="120"></canvas>
+                </div>
+
+                <div class="bg-white p-8 rounded-[3rem] shadow-sm border border-slate-100">
+                    <div class="flex items-center gap-4 mb-8">
+                        <div class="bg-slate-800 p-3 rounded-full text-white"><i data-lucide="bell" size="18"></i></div>
+                        <div>
+                            <h4 class="font-black text-sm italic">Alertas de tu ADN</h4>
+                            <p class="text-slate-400 text-[10px] font-bold">Resumen inteligente</p>
+                        </div>
+                    </div>
+                    <div class="space-y-5">
+                        <div class="bg-orange-50/50 border border-orange-100 p-5 rounded-[2rem]">
+                            <p class="text-xs font-bold text-slate-700 mb-3 leading-relaxed">¡Ojo! Te quedan solo 5 unidades de Polo Blanco Talla M.</p>
+                            <button class="bg-orange-400 text-white text-[10px] font-black px-5 py-2.5 rounded-full uppercase tracking-widest">Reponer ahora</button>
+                        </div>
+                        <div class="bg-sky-50/50 border border-sky-100 p-5 rounded-[2rem]">
+                            <p class="text-xs font-bold text-slate-700 mb-3 leading-relaxed">Notamos pocos gastos registrados ayer. ¿Hiciste algún pago?</p>
+                            <button class="bg-sky-400 text-white text-[10px] font-black px-5 py-2.5 rounded-full uppercase tracking-widest">Anotar gasto</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <div id="teamModal" class="hidden fixed inset-0 bg-slate-900/90 backdrop-blur-md z-50 flex items-center justify-center p-6">
+        <div class="bg-white w-full max-w-2xl rounded-[3rem] p-12 relative shadow-2xl border-4 border-emerald-400">
+            <button onclick="toggleModal()" class="absolute top-8 right-8 p-3 hover:bg-slate-100 rounded-full transition-all">
+                <i data-lucide="x" class="text-slate-800"></i>
+            </button>
+            <h2 class="text-4xl font-black text-[#0F172A] mb-2 italic uppercase">ADN Emprendedores</h2>
+            <p class="text-emerald-500 font-black tracking-widest mb-10 border-b pb-4 border-slate-100 text-sm">GESTIÓN PUCP • EQUIPO 2024</p>
+            
+            <div class="grid grid-cols-2 gap-12 text-slate-700">
+                <div>
+                    <h3 class="font-black text-slate-400 uppercase text-[10px] tracking-[0.2em] mb-4">Integrantes del Equipo</h3>
+                    <ul class="space-y-2 font-bold text-lg">
+                        <li class="flex items-center gap-2"><span class="text-emerald-400">⚡</span> Diego Urbina</li>
+                        <li class="flex items-center gap-2"><span class="text-emerald-400">⚡</span> Daniela Avalos</li>
+                        <li class="flex items-center gap-2"><span class="text-emerald-400">⚡</span> Anel Montes</li>
+                        <li class="flex items-center gap-2"><span class="text-emerald-400">⚡</span> Valeria Flórez</li>
+                        <li class="flex items-center gap-2"><span class="text-emerald-400">⚡</span> Yessica Sehuin</li>
+                        <li class="flex items-center gap-2"><span class="text-emerald-400">⚡</span> Isaac Chiroque</li>
+                    </ul>
+                </div>
+                <div class="space-y-8">
+                    <div>
+                        <h3 class="font-black text-slate-400 uppercase text-[10px] tracking-[0.2em] mb-3">Misión</h3>
+                        <p class="text-sm font-semibold italic text-slate-500 leading-relaxed">"Empoderar a microemprendedores peruanos con tecnología de gestión financiera simple e intuitiva."</p>
+                    </div>
+                    <div>
+                        <h3 class="font-black text-slate-400 uppercase text-[10px] tracking-[0.2em] mb-3">Visión</h3>
+                        <p class="text-sm font-semibold italic text-slate-500 leading-relaxed">"Ser el ADN digital del éxito para cada negocio local en el Perú."</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Inicializar Iconos
+        lucide.createIcons();
+
+        // Función Modal
+        function toggleModal() {
+            const modal = document.getElementById('teamModal');
+            modal.classList.toggle('hidden');
+        }
+
+        // Gráfico Chart.js
+        const ctx = document.getElementById('mainChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Jue', 'Vie', 'Sáb', 'Dom', 'Lun', 'Mar', 'Mié'],
+                datasets: [{
+                    label: 'Entró',
+                    data: [800, 1100, 700, 1400, 1650, 2100, 1000],
+                    backgroundColor: '#10b981',
+                    borderRadius: 8,
+                }, {
+                    label: 'Salió',
+                    data: [450, 600, 400, 500, 750, 950, 450],
+                    backgroundColor: '#fb923c',
+                    borderRadius: 8,
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: { legend: { display: false } },
+                scales: {
+                    y: { display: false },
+                    x: { grid: { display: false }, border: { display: false }, ticks: { font: { weight: 'bold' } } }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
