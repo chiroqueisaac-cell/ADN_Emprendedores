@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>ADN Emprendedor</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: sans-serif;
+      display: flex;
+      height: 100vh;
+    }
+
+    .sidebar {
+      width: 250px;
+      background: #0f172a;
+      color: white;
+      padding: 20px;
+    }
+
+    .logo {
+      width: 140px;
+      margin-bottom: 20px;
+    }
+
+    .sidebar button {
+      display: block;
+      margin: 10px 0;
+      padding: 10px;
+      width: 100%;
+      background: none;
+      border: none;
+      color: white;
+      cursor: pointer;
+    }
+
+    .sidebar button:hover {
+      color: #22c55e;
+    }
+
+    .content {
+      flex: 1;
+      padding: 20px;
+      background: #f8fafc;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .cards {
+      display: flex;
+      gap: 10px;
+    }
+
+    .card {
+      flex: 1;
+      padding: 20px;
+      border-radius: 15px;
+      color: white;
+    }
+
+    .green { background: #10b981; }
+    .orange { background: #f97316; }
+    .pink { background: #ec4899; }
+  </style>
+
+</head>
+
+<body>
+
+  <div class="sidebar">
+    <img src="logo.png" class="logo">
+
+```
+<button onclick="show('dashboard')">📊 Mi Tablero</button>
+<button onclick="show('transactions')">💸 Entradas y Salidas</button>
+<button onclick="show('repository')">📂 Repositorio</button>
+<button onclick="show('about')">👥 Sobre Nosotros</button>
+```
+
+  </div>
+
+  <div class="content">
+
+```
+<div id="dashboard">
+  <h1>Dashboard</h1>
+
+  <div class="cards">
+    <div class="card green">
+      <h3>Dinero en Caja</h3>
+      <p>S/ 5,030.00</p>
+    </div>
+
+    <div class="card orange">
+      <h3>Pagos Pendientes</h3>
+      <p>S/ 1,200.00</p>
+    </div>
+
+    <div class="card pink">
+      <h3>Ganancia del Mes</h3>
+      <p>S/ 2,694.00</p>
+    </div>
+  </div>
+</div>
+
+<div id="transactions" class="hidden">
+  <h1>Registrar Movimiento</h1>
+  <input placeholder="Monto"><br><br>
+  <input placeholder="Descripción"><br><br>
+  <button>Guardar</button>
+</div>
+
+<div id="repository" class="hidden">
+  <h1>Repositorio</h1>
+  <input type="file">
+</div>
+
+<div id="about" class="hidden">
+  <h1>Sobre Nosotros</h1>
+  <p>Equipo ADN Emprendedor</p>
+</div>
+```
+
+  </div>
+
+  <script>
+    function show(section) {
+      document.querySelectorAll(".content > div").forEach(div => {
+        div.classList.add("hidden");
+      });
+
+      document.getElementById(section).classList.remove("hidden");
+    }
+  </script>
+
+</body>
+</html>
